@@ -1,0 +1,93 @@
+---
+title: "Microscopy data analysis"
+output: html_notebook
+---
+
+```{r}
+library(readr)
+library(dplyr)
+library(tibble)
+library(ggplot2)
+library(ggpubr)
+library(viridis)
+library(tidyr)
+library(broom)
+```
+
+Reading all measurements data
+```{r}
+# data_all <- read_csv("measurements.csv") 
+# Split the measurements data file to conform to maximum file size limit on Github.
+data_1 <- read_csv("measurements_part1.csv")
+data_2 <- read_csv("measurements_part2.csv")
+data_all <- bind_rows(data_1, data_2)
+```
+
+Reading image sharpness (laplacian) data
+```{r}
+data_laplacian <- read_csv("laplacian.csv", col_names = c("filename","frameID","laplacian"))
+```
+
+Filter data for non-blurry images (arbitrary laplacian value > 420)
+
+```{r}
+sharp_frames <- data_laplacian %>% filter(laplacian > 450) %>% select(frameID)
+data_sharp <- data_all[data_all$frameID %in% sharp_frames$frameID,]
+```
+
+
+## Plotting area fraction of SGs across variants
+```{r fig.width=2.5, fig.height=3.25}
+data_GFP <- data_sharp %>% filter(cellavgGFP > 150)
+SG_area_frac <- data_GFP %>% filter(time == 20) %>% mutate(SG_over_cyto = SG_area / cyto_area)
+SG_area_frac <- SG_area_frac %>%
+  mutate(condition = case_when(
+    condition == "AWV" ~ "allW D262V",
+    TRUE ~ condition  # Keep other values unchanged
+  ))
+SG_area_frac$condition <- factor(SG_area_frac$condition, levels = c("WT", "D262V", "allW D262V"))
+res.aov <- aov(SG_over_cyto ~ condition, data = SG_area_frac)
+summary(res.aov)
+Tukey_data <- TukeyHSD(res.aov)$condition
+Tukey_data
+maxvalues <- SG_area_frac %>% group_by(condition) %>% summarise(MAX = max(SG_over_cyto))
+pval <- as.data.frame(Tukey_data) %>% rownames_to_column("Group") %>%
+  rowwise() %>%
+  mutate(Start = unlist(strsplit(Group,"-"))[1],
+         End = unlist(strsplit(Group,"-"))[2]) %>%
+  left_join(.,maxvalues, by = c("Start" = "condition")) %>%
+  left_join(.,maxvalues, by = c("End" = "condition")) %>% ungroup() %>%
+  mutate(ypos = c(0.14,0.15,0.16)) %>%
+  mutate(End = factor(End, levels = c("WT","D262V","allW D262V"))) %>% rowwise() %>%
+  #mutate(ypos = max(MAX.x, MAX.y)*(1+0.25*as.numeric(End))) %>%
+  mutate(sig_level = case_when(
+    `p adj` >= 0.05 ~ "NS",
+    `p adj` < 0.05 & `p adj` >= 0.01 ~ "*",
+    `p adj` < 0.01 & `p adj` >= 0.001 ~ "**",
+    `p adj` < 0.001 ~ "***"
+  ))
+
+
+p14 <- ggplot(data = SG_area_frac, aes(x = condition, y = SG_over_cyto)) +
+  geom_boxplot(outlier.shape = NA) +
+  geom_jitter(width = 0.2, alpha = 0.2) +
+  stat_summary(fun.y="mean",color="red", shape=4, size = 2) +
+  geom_signif(data = pval, manual = TRUE,
+              aes(xmax = End, xmin = Start, y_position= ypos, annotations = sig_level), tip_length = 0, textsize = 3) +
+  xlab("Variant") + ylab("SG area / Cytoplasm area") +
+  theme(axis.title.x = element_text(face = "bold"),
+        axis.text = element_text(face = "bold")
+        ) +
+  
+  theme_bw()
+
+p14
+```
+
+
+```{r}
+pdf("SG_area_fraction_plot.pdf", width = 2.5, height = 3.25)
+p14
+dev.off()
+```
+

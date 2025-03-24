@@ -1,0 +1,241 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+```{r}
+library(readr)
+library(dplyr)
+library(ggplot2)
+library(tidyr)
+library(survival)
+library(survminer)
+library(gridExtra)
+```
+
+```{r}
+df1 <- read_csv("manual_scoring.csv", col_types = "ffddd")
+df2 <- read_csv("manual_scoring_negControl.csv", col_types = "ffddd")
+df1 <- df1 %>% mutate(cat = "expressing")
+df2 <- df2 %>% mutate(cat = "nonexpressing")
+df3 <- bind_rows(df1, df2)
+df4 <- df3 %>% filter(!((Day == 20231005 & Variant == "WT")|
+                 (Day == 20231005 & Variant == "D262V")|
+                 (Day == 20231207 & Variant == "allW D262V")))
+
+df4 <- df4 %>% mutate(Index = interaction(Day, Variant))
+df4$Index <- droplevels(df4$Index)
+df4 <- df4 %>% mutate(t = t_dissolution - 62)
+
+indices <- levels(df4$Index)
+variants <- levels(df4$Variant)
+
+df4.1 <- df4 %>% filter(cat == "expressing")
+df4.2 <- df4 %>% filter(cat == "nonexpressing")
+```
+
+
+```{r}
+test1 <- df4.1 %>% mutate(status = case_when(t_dissolution == 181 ~ 0, TRUE ~ 1))
+```
+
+```{r}
+sfit1 <- survfit(Surv(t, status)~Variant, data=test1)
+```
+
+
+```{r fig.width = 4.75, fig.height = 5}
+p1 <- ggsurvplot(sfit1, conf.int=TRUE, pval=TRUE, risk.table=F, 
+           palette=c("dodgerblue2", "orchid2", "darkgreen"),
+           legend.labs=c("WT", "D262V", "allW D262V"), legend.title="Variant",
+           #legend = "bottom",
+           xlab = "Recovery time (min)",
+           ylab = "Fraction of cells with SGs",
+           break.x.by = 15,
+           pval.coord = c(85,1),
+           risk.table.height=0.25,
+           risk.table.title = "Number of cells with SGs",
+           title = "SG disassembly in\neGFP-expressing cells",
+           ggtheme = theme_classic() +
+             theme(axis.title = element_text(size = 14,face = "bold"),
+                   legend.text = element_text(size = 12),
+                   legend.title = element_text(size =12, face = "bold"),
+                   axis.text = element_text(size = 12),
+                   title = element_text(size = 12, face = "bold")
+                   ))
+
+res1 <- pairwise_survdiff(Surv(t, status)~Variant, data=test1, p.adjust.method = "BH")
+res1
+table1 <- res1$p.value
+table1 <- signif(table1, digits = 2)
+p1$plot <- p1$plot + annotation_custom(tableGrob(table1), xmin=0, xmax=75, ymin=0, ymax=0.25)
+grob <- text_grob(label = "Adjusted p-values", size = 14, face = "bold")
+p1$plot <- p1$plot + annotation_custom(grob, xmin = 0, xmax = 60, ymin = 0.3, ymax = 0.35)
+
+pdf("surv_expressing.pdf", width = 4.75, height = 5)
+print(p1)
+dev.off()
+
+p1
+```
+
+
+
+```{r}
+test2 <- df4.2 %>% mutate(status = case_when(t_dissolution == 181 ~ 0, TRUE ~ 1))
+```
+
+```{r}
+sfit2 <- survfit(Surv(t, status)~Variant, data=test2)
+```
+
+
+```{r fig.width = 4.75, fig.height = 5}
+p2 <- ggsurvplot(sfit2, conf.int=TRUE, pval=TRUE, risk.table=F, 
+           palette=c("dodgerblue2", "orchid2", "darkgreen"),
+           legend.labs=c("WT", "D262V", "allW D262V"), legend.title="Variant",
+           xlab = "Recovery time (min)",
+           ylab = "Fraction of cells with SGs",
+           break.x.by = 15,
+           risk.table.height=0.25,
+           risk.table.title = "Number of cells with SGs",
+           title = "SG disassembly in cells with\nbaseline eGFP expression",
+           pval.coord = c(85,1),
+           ggtheme = theme_classic() +
+             theme(axis.title = element_text(size = 14,face = "bold"),
+                   legend.text = element_text(size = 12),
+                   legend.title = element_text(size =12, face = "bold"),
+                   axis.text = element_text(size = 12),
+                   title = element_text(size = 12, face = "bold")
+                   ))
+
+res2 <- pairwise_survdiff(Surv(t, status)~Variant, data=test2, p.adjust.method = "BH")
+res2
+table2 <- res2$p.value
+table2 <- signif(table2, digits = 2)
+p2$plot <- p2$plot + annotation_custom(tableGrob(table2), xmin=0, xmax=75, ymin=0, ymax=0.25)
+grob <- text_grob(label = "Adjusted p-values", size = 14, face = "bold")
+p2$plot <- p2$plot + annotation_custom(grob, xmin = 0, xmax = 60, ymin = 0.3, ymax = 0.35)
+
+pdf("surv_nonexpressing.pdf", width = 4.75, height = 5)
+print(p2)
+dev.off()
+
+p2
+
+```
+
+```{r}
+#Exporting raw data
+
+temp <- test1 %>% mutate(Day = recode(Day, "20230929" = "1", "20231004" = "2", "20231005" = "3", "20231207" = "4"))
+temp <- temp %>% select(c(1,2,4,6,5,8,9)) %>% group_by(Variant) %>% arrange(Day, t_dissolution, .by_group = T)
+write_csv(temp,"expressing.csv")
+
+temp <- test2 %>% mutate(Day = recode(Day, "20230929" = "1", "20231004" = "2", "20231005" = "3", "20231207" = "4"))
+temp <- temp %>% select(c(1,2,4,6,5,8,9)) %>% group_by(Variant) %>% arrange(Day, t_dissolution, .by_group = T)
+write_csv(temp,"nonexpressing.csv")
+
+sink("surv_summary_expressing.txt")
+summary(sfit1)
+sink()
+
+sink("surv_summary_nonexpressing.txt")
+summary(sfit2)
+sink()
+
+```
+
+## Comparing expressing vs nonexpressing for each variant
+
+```{r}
+test <- bind_rows(test1, test2)
+test_v1 <- test %>% filter(Variant == "WT")
+test_v2 <- test %>% filter(Variant == "D262V")
+test_v3 <- test %>% filter(Variant == "allW D262V")
+sfit_v1 <- survfit(Surv(t, status)~cat, data=test_v1)
+sfit_v2 <- survfit(Surv(t, status)~cat, data=test_v2)
+sfit_v3 <- survfit(Surv(t, status)~cat, data=test_v3)
+```
+
+```{r fig.width = 4.75, fig.height = 5}
+p_v1 <- ggsurvplot(sfit_v1, conf.int=TRUE, pval=TRUE, risk.table=F, 
+           palette=c("dodgerblue2", "orchid2", "darkgreen"),
+           legend.labs=c("Expressing", "Nonexpressing"), legend.title="eGFP",
+           xlab = "Recovery time (min)",
+           ylab = "Fraction of cells with SGs",
+           break.x.by = 15,
+           risk.table.height=0.25,
+           risk.table.title = "Number of cells with SGs",
+           title = "WT",
+           #pval.coord = c(85,1),
+           ggtheme = theme_classic() +
+             theme(axis.title = element_text(size = 14,face = "bold"),
+                   legend.text = element_text(size = 12),
+                   legend.title = element_text(size =12, face = "bold"),
+                   axis.text = element_text(size = 12),
+                   title = element_text(size = 12, face = "bold")
+                   ))
+
+pdf("surv_v1.pdf", width = 4.75, height = 5)
+print(p_v1)
+dev.off()
+
+p_v1
+
+```
+
+```{r fig.width = 4.75, fig.height = 5}
+p_v2 <- ggsurvplot(sfit_v2, conf.int=TRUE, pval=TRUE, risk.table=F, 
+           palette=c("dodgerblue2", "orchid2", "darkgreen"),
+           legend.labs=c("Expressing", "Nonexpressing"), legend.title="eGFP",
+           xlab = "Recovery time (min)",
+           ylab = "Fraction of cells with SGs",
+           break.x.by = 15,
+           risk.table.height=0.25,
+           risk.table.title = "Number of cells with SGs",
+           title = "D262V",
+           #pval.coord = c(85,1),
+           ggtheme = theme_classic() +
+             theme(axis.title = element_text(size = 14,face = "bold"),
+                   legend.text = element_text(size = 12),
+                   legend.title = element_text(size =12, face = "bold"),
+                   axis.text = element_text(size = 12),
+                   title = element_text(size = 12, face = "bold")
+                   ))
+
+
+pdf("surv_v2.pdf", width = 4.75, height = 5)
+print(p_v2)
+dev.off()
+
+p_v2
+
+```
+
+```{r fig.width = 4.75, fig.height = 5}
+p_v3 <- ggsurvplot(sfit_v3, conf.int=TRUE, pval=TRUE, risk.table=F, 
+           palette=c("dodgerblue2", "orchid2", "darkgreen"),
+           legend.labs=c("Expressing", "Nonexpressing"), legend.title="eGFP",
+           xlab = "Recovery time (min)",
+           ylab = "Fraction of cells with SGs",
+           break.x.by = 15,
+           risk.table.height=0.25,
+           risk.table.title = "Number of cells with SGs",
+           title = "allW D262V",
+           #pval.coord = c(85,1),
+           ggtheme = theme_classic() +
+             theme(axis.title = element_text(size = 14,face = "bold"),
+                   legend.text = element_text(size = 12),
+                   legend.title = element_text(size =12, face = "bold"),
+                   axis.text = element_text(size = 12),
+                   title = element_text(size = 12, face = "bold")
+                   ))
+
+
+pdf("surv_v3.pdf", width = 4.75, height = 5)
+print(p_v3)
+dev.off()
+
+p_v3
+
+```

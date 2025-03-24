@@ -1,0 +1,534 @@
+Day,Variant,i_GFP,cat,t_dissolution,t,status
+1,WT,112,expressing,80,18,1
+1,WT,643,expressing,81,19,1
+1,WT,354,expressing,83,21,1
+1,WT,112,expressing,83,21,1
+1,WT,150,expressing,88,26,1
+1,WT,132,expressing,90,28,1
+1,WT,852,expressing,92,30,1
+1,WT,147,expressing,96,34,1
+1,WT,106,expressing,119,57,1
+1,WT,205,expressing,133,71,1
+1,WT,601,expressing,136,74,1
+1,WT,104,expressing,138,76,1
+1,WT,124,expressing,145,83,1
+1,WT,132,expressing,149,87,1
+1,WT,127,expressing,151,89,1
+1,WT,112,expressing,157,95,1
+1,WT,345,expressing,158,96,1
+1,WT,114,expressing,160,98,1
+1,WT,104,expressing,162,100,1
+1,WT,160,expressing,175,113,1
+1,WT,107,expressing,181,119,0
+1,WT,193,expressing,181,119,0
+1,WT,816,expressing,181,119,0
+2,WT,200,expressing,73,11,1
+2,WT,309,expressing,76,14,1
+2,WT,250,expressing,81,19,1
+2,WT,108,expressing,84,22,1
+2,WT,120,expressing,88,26,1
+2,WT,118,expressing,94,32,1
+2,WT,160,expressing,97,35,1
+2,WT,130,expressing,97,35,1
+2,WT,1285,expressing,97,35,1
+2,WT,141,expressing,114,52,1
+2,WT,212,expressing,115,53,1
+2,WT,104,expressing,116,54,1
+2,WT,134,expressing,121,59,1
+2,WT,130,expressing,121,59,1
+2,WT,136,expressing,123,61,1
+2,WT,120,expressing,125,63,1
+2,WT,240,expressing,129,67,1
+2,WT,847,expressing,130,68,1
+2,WT,159,expressing,140,78,1
+2,WT,235,expressing,140,78,1
+2,WT,113,expressing,143,81,1
+2,WT,691,expressing,151,89,1
+2,WT,113,expressing,151,89,1
+2,WT,141,expressing,157,95,1
+2,WT,318,expressing,157,95,1
+2,WT,173,expressing,159,97,1
+2,WT,206,expressing,160,98,1
+2,WT,1723,expressing,163,101,1
+2,WT,307,expressing,173,111,1
+2,WT,518,expressing,173,111,1
+2,WT,124,expressing,173,111,1
+2,WT,146,expressing,174,112,1
+2,WT,131,expressing,175,113,1
+2,WT,221,expressing,176,114,1
+2,WT,132,expressing,178,116,1
+2,WT,536,expressing,181,119,0
+2,WT,296,expressing,181,119,0
+2,WT,123,expressing,181,119,0
+2,WT,270,expressing,181,119,0
+2,WT,124,expressing,181,119,0
+2,WT,620,expressing,181,119,0
+2,WT,300,expressing,181,119,0
+2,WT,147,expressing,181,119,0
+2,WT,946,expressing,181,119,0
+2,WT,315,expressing,181,119,0
+2,WT,123,expressing,181,119,0
+2,WT,198,expressing,181,119,0
+2,WT,317,expressing,181,119,0
+2,WT,115,expressing,181,119,0
+4,WT,148,expressing,84,22,1
+4,WT,169,expressing,85,23,1
+4,WT,771,expressing,86,24,1
+4,WT,156,expressing,87,25,1
+4,WT,107,expressing,88,26,1
+4,WT,335,expressing,89,27,1
+4,WT,108,expressing,90,28,1
+4,WT,1015,expressing,92,30,1
+4,WT,754,expressing,92,30,1
+4,WT,562,expressing,94,32,1
+4,WT,110,expressing,95,33,1
+4,WT,117,expressing,96,34,1
+4,WT,103,expressing,98,36,1
+4,WT,113,expressing,98,36,1
+4,WT,187,expressing,99,37,1
+4,WT,113,expressing,100,38,1
+4,WT,692,expressing,101,39,1
+4,WT,167,expressing,101,39,1
+4,WT,110,expressing,101,39,1
+4,WT,148,expressing,103,41,1
+4,WT,109,expressing,105,43,1
+4,WT,119,expressing,106,44,1
+4,WT,117,expressing,107,45,1
+4,WT,112,expressing,109,47,1
+4,WT,121,expressing,119,57,1
+4,WT,108,expressing,120,58,1
+4,WT,108,expressing,120,58,1
+4,WT,114,expressing,126,64,1
+4,WT,103,expressing,129,67,1
+4,WT,110,expressing,131,69,1
+4,WT,174,expressing,132,70,1
+4,WT,105,expressing,135,73,1
+4,WT,117,expressing,135,73,1
+4,WT,103,expressing,137,75,1
+4,WT,119,expressing,139,77,1
+4,WT,112,expressing,139,77,1
+4,WT,104,expressing,139,77,1
+4,WT,103,expressing,140,78,1
+4,WT,103,expressing,142,80,1
+4,WT,103,expressing,144,82,1
+4,WT,248,expressing,145,83,1
+4,WT,104,expressing,145,83,1
+4,WT,116,expressing,148,86,1
+4,WT,115,expressing,155,93,1
+4,WT,349,expressing,157,95,1
+4,WT,114,expressing,157,95,1
+4,WT,147,expressing,159,97,1
+4,WT,262,expressing,159,97,1
+4,WT,106,expressing,160,98,1
+4,WT,104,expressing,163,101,1
+4,WT,174,expressing,169,107,1
+4,WT,351,expressing,176,114,1
+4,WT,474,expressing,176,114,1
+4,WT,361,expressing,181,119,0
+4,WT,108,expressing,181,119,0
+4,WT,121,expressing,181,119,0
+4,WT,273,expressing,181,119,0
+4,WT,125,expressing,181,119,0
+4,WT,103,expressing,181,119,0
+4,WT,623,expressing,181,119,0
+4,WT,422,expressing,181,119,0
+4,WT,125,expressing,181,119,0
+4,WT,122,expressing,181,119,0
+4,WT,341,expressing,181,119,0
+4,WT,113,expressing,181,119,0
+4,WT,138,expressing,181,119,0
+1,D262V,209,expressing,81,19,1
+1,D262V,154,expressing,82,20,1
+1,D262V,406,expressing,86,24,1
+1,D262V,239,expressing,91,29,1
+1,D262V,475,expressing,92,30,1
+1,D262V,144,expressing,97,35,1
+1,D262V,468,expressing,100,38,1
+1,D262V,105,expressing,108,46,1
+1,D262V,115,expressing,110,48,1
+1,D262V,284,expressing,110,48,1
+1,D262V,119,expressing,123,61,1
+1,D262V,152,expressing,128,66,1
+1,D262V,125,expressing,128,66,1
+1,D262V,183,expressing,129,67,1
+1,D262V,203,expressing,132,70,1
+1,D262V,139,expressing,135,73,1
+1,D262V,433,expressing,135,73,1
+1,D262V,237,expressing,141,79,1
+1,D262V,106,expressing,142,80,1
+1,D262V,153,expressing,143,81,1
+1,D262V,218,expressing,149,87,1
+1,D262V,558,expressing,150,88,1
+1,D262V,111,expressing,152,90,1
+1,D262V,206,expressing,152,90,1
+1,D262V,133,expressing,153,91,1
+1,D262V,257,expressing,153,91,1
+1,D262V,105,expressing,155,93,1
+1,D262V,1008,expressing,161,99,1
+1,D262V,112,expressing,161,99,1
+1,D262V,270,expressing,162,100,1
+1,D262V,157,expressing,169,107,1
+1,D262V,431,expressing,175,113,1
+1,D262V,300,expressing,175,113,1
+1,D262V,779,expressing,181,119,0
+1,D262V,107,expressing,181,119,0
+1,D262V,110,expressing,181,119,0
+1,D262V,394,expressing,181,119,0
+1,D262V,241,expressing,181,119,0
+1,D262V,249,expressing,181,119,0
+1,D262V,175,expressing,181,119,0
+1,D262V,136,expressing,181,119,0
+1,D262V,120,expressing,181,119,0
+1,D262V,119,expressing,181,119,0
+1,D262V,477,expressing,181,119,0
+1,D262V,529,expressing,181,119,0
+1,D262V,171,expressing,181,119,0
+1,D262V,740,expressing,181,119,0
+2,D262V,123,expressing,90,28,1
+2,D262V,105,expressing,94,32,1
+2,D262V,191,expressing,94,32,1
+2,D262V,245,expressing,97,35,1
+2,D262V,322,expressing,98,36,1
+2,D262V,770,expressing,104,42,1
+2,D262V,139,expressing,106,44,1
+2,D262V,128,expressing,117,55,1
+2,D262V,140,expressing,120,58,1
+2,D262V,113,expressing,121,59,1
+2,D262V,142,expressing,121,59,1
+2,D262V,1839,expressing,122,60,1
+2,D262V,106,expressing,132,70,1
+2,D262V,178,expressing,136,74,1
+2,D262V,387,expressing,136,74,1
+2,D262V,338,expressing,138,76,1
+2,D262V,1614,expressing,145,83,1
+2,D262V,167,expressing,153,91,1
+2,D262V,162,expressing,153,91,1
+2,D262V,167,expressing,156,94,1
+2,D262V,178,expressing,160,98,1
+2,D262V,119,expressing,162,100,1
+2,D262V,108,expressing,163,101,1
+2,D262V,192,expressing,165,103,1
+2,D262V,104,expressing,166,104,1
+2,D262V,230,expressing,166,104,1
+2,D262V,114,expressing,167,105,1
+2,D262V,188,expressing,168,106,1
+2,D262V,183,expressing,170,108,1
+2,D262V,179,expressing,170,108,1
+2,D262V,148,expressing,172,110,1
+2,D262V,112,expressing,173,111,1
+2,D262V,901,expressing,174,112,1
+2,D262V,484,expressing,179,117,1
+2,D262V,170,expressing,180,118,1
+2,D262V,380,expressing,180,118,1
+2,D262V,208,expressing,181,119,0
+2,D262V,181,expressing,181,119,0
+2,D262V,165,expressing,181,119,0
+2,D262V,160,expressing,181,119,0
+2,D262V,265,expressing,181,119,0
+2,D262V,123,expressing,181,119,0
+2,D262V,222,expressing,181,119,0
+2,D262V,142,expressing,181,119,0
+2,D262V,270,expressing,181,119,0
+2,D262V,194,expressing,181,119,0
+2,D262V,374,expressing,181,119,0
+2,D262V,760,expressing,181,119,0
+2,D262V,380,expressing,181,119,0
+2,D262V,194,expressing,181,119,0
+2,D262V,136,expressing,181,119,0
+2,D262V,449,expressing,181,119,0
+2,D262V,187,expressing,181,119,0
+2,D262V,111,expressing,181,119,0
+2,D262V,113,expressing,181,119,0
+2,D262V,118,expressing,181,119,0
+2,D262V,354,expressing,181,119,0
+2,D262V,1674,expressing,181,119,0
+2,D262V,2070,expressing,181,119,0
+2,D262V,110,expressing,181,119,0
+4,D262V,139,expressing,75,13,1
+4,D262V,183,expressing,78,16,1
+4,D262V,194,expressing,79,17,1
+4,D262V,170,expressing,81,19,1
+4,D262V,112,expressing,81,19,1
+4,D262V,221,expressing,81,19,1
+4,D262V,251,expressing,81,19,1
+4,D262V,293,expressing,83,21,1
+4,D262V,139,expressing,83,21,1
+4,D262V,197,expressing,84,22,1
+4,D262V,147,expressing,86,24,1
+4,D262V,472,expressing,89,27,1
+4,D262V,154,expressing,89,27,1
+4,D262V,149,expressing,90,28,1
+4,D262V,325,expressing,90,28,1
+4,D262V,132,expressing,93,31,1
+4,D262V,145,expressing,96,34,1
+4,D262V,111,expressing,98,36,1
+4,D262V,168,expressing,98,36,1
+4,D262V,409,expressing,99,37,1
+4,D262V,337,expressing,101,39,1
+4,D262V,157,expressing,101,39,1
+4,D262V,117,expressing,101,39,1
+4,D262V,295,expressing,101,39,1
+4,D262V,397,expressing,102,40,1
+4,D262V,121,expressing,102,40,1
+4,D262V,176,expressing,105,43,1
+4,D262V,127,expressing,106,44,1
+4,D262V,199,expressing,106,44,1
+4,D262V,110,expressing,106,44,1
+4,D262V,135,expressing,106,44,1
+4,D262V,274,expressing,106,44,1
+4,D262V,105,expressing,110,48,1
+4,D262V,115,expressing,112,50,1
+4,D262V,608,expressing,114,52,1
+4,D262V,109,expressing,116,54,1
+4,D262V,109,expressing,117,55,1
+4,D262V,107,expressing,117,55,1
+4,D262V,223,expressing,117,55,1
+4,D262V,200,expressing,117,55,1
+4,D262V,571,expressing,118,56,1
+4,D262V,232,expressing,119,57,1
+4,D262V,127,expressing,119,57,1
+4,D262V,223,expressing,119,57,1
+4,D262V,607,expressing,124,62,1
+4,D262V,170,expressing,124,62,1
+4,D262V,203,expressing,126,64,1
+4,D262V,115,expressing,126,64,1
+4,D262V,232,expressing,127,65,1
+4,D262V,107,expressing,128,66,1
+4,D262V,162,expressing,131,69,1
+4,D262V,106,expressing,132,70,1
+4,D262V,254,expressing,132,70,1
+4,D262V,210,expressing,133,71,1
+4,D262V,125,expressing,136,74,1
+4,D262V,139,expressing,138,76,1
+4,D262V,213,expressing,139,77,1
+4,D262V,1337,expressing,139,77,1
+4,D262V,320,expressing,140,78,1
+4,D262V,375,expressing,141,79,1
+4,D262V,131,expressing,141,79,1
+4,D262V,104,expressing,142,80,1
+4,D262V,142,expressing,145,83,1
+4,D262V,105,expressing,146,84,1
+4,D262V,118,expressing,147,85,1
+4,D262V,435,expressing,148,86,1
+4,D262V,268,expressing,148,86,1
+4,D262V,421,expressing,149,87,1
+4,D262V,130,expressing,150,88,1
+4,D262V,420,expressing,152,90,1
+4,D262V,158,expressing,153,91,1
+4,D262V,123,expressing,155,93,1
+4,D262V,1704,expressing,155,93,1
+4,D262V,202,expressing,156,94,1
+4,D262V,466,expressing,158,96,1
+4,D262V,158,expressing,158,96,1
+4,D262V,382,expressing,159,97,1
+4,D262V,179,expressing,161,99,1
+4,D262V,289,expressing,162,100,1
+4,D262V,148,expressing,164,102,1
+4,D262V,142,expressing,164,102,1
+4,D262V,233,expressing,165,103,1
+4,D262V,182,expressing,166,104,1
+4,D262V,103,expressing,166,104,1
+4,D262V,146,expressing,169,107,1
+4,D262V,221,expressing,169,107,1
+4,D262V,118,expressing,171,109,1
+4,D262V,259,expressing,172,110,1
+4,D262V,128,expressing,177,115,1
+4,D262V,1796,expressing,181,119,0
+4,D262V,852,expressing,181,119,0
+4,D262V,545,expressing,181,119,0
+4,D262V,469,expressing,181,119,0
+4,D262V,441,expressing,181,119,0
+4,D262V,311,expressing,181,119,0
+4,D262V,359,expressing,181,119,0
+4,D262V,121,expressing,181,119,0
+4,D262V,228,expressing,181,119,0
+4,D262V,145,expressing,181,119,0
+4,D262V,1395,expressing,181,119,0
+4,D262V,201,expressing,181,119,0
+4,D262V,173,expressing,181,119,0
+4,D262V,110,expressing,181,119,0
+4,D262V,514,expressing,181,119,0
+4,D262V,115,expressing,181,119,0
+4,D262V,121,expressing,181,119,0
+4,D262V,120,expressing,181,119,0
+4,D262V,491,expressing,181,119,0
+4,D262V,128,expressing,181,119,0
+4,D262V,332,expressing,181,119,0
+4,D262V,146,expressing,181,119,0
+1,allW D262V,111,expressing,74,12,1
+1,allW D262V,122,expressing,75,13,1
+1,allW D262V,143,expressing,76,14,1
+1,allW D262V,851,expressing,79,17,1
+1,allW D262V,921,expressing,81,19,1
+1,allW D262V,151,expressing,82,20,1
+1,allW D262V,670,expressing,83,21,1
+1,allW D262V,297,expressing,84,22,1
+1,allW D262V,591,expressing,86,24,1
+1,allW D262V,138,expressing,86,24,1
+1,allW D262V,347,expressing,86,24,1
+1,allW D262V,318,expressing,87,25,1
+1,allW D262V,280,expressing,88,26,1
+1,allW D262V,169,expressing,91,29,1
+1,allW D262V,117,expressing,91,29,1
+1,allW D262V,1289,expressing,92,30,1
+1,allW D262V,161,expressing,94,32,1
+1,allW D262V,516,expressing,96,34,1
+1,allW D262V,439,expressing,96,34,1
+1,allW D262V,568,expressing,102,40,1
+1,allW D262V,126,expressing,104,42,1
+1,allW D262V,139,expressing,105,43,1
+1,allW D262V,300,expressing,106,44,1
+1,allW D262V,156,expressing,108,46,1
+1,allW D262V,246,expressing,109,47,1
+1,allW D262V,215,expressing,114,52,1
+1,allW D262V,1198,expressing,116,54,1
+1,allW D262V,188,expressing,119,57,1
+1,allW D262V,221,expressing,124,62,1
+1,allW D262V,114,expressing,126,64,1
+1,allW D262V,311,expressing,126,64,1
+1,allW D262V,1172,expressing,128,66,1
+1,allW D262V,315,expressing,136,74,1
+1,allW D262V,270,expressing,137,75,1
+1,allW D262V,757,expressing,138,76,1
+1,allW D262V,269,expressing,143,81,1
+1,allW D262V,435,expressing,147,85,1
+1,allW D262V,328,expressing,148,86,1
+1,allW D262V,241,expressing,151,89,1
+1,allW D262V,233,expressing,152,90,1
+1,allW D262V,208,expressing,154,92,1
+1,allW D262V,107,expressing,156,94,1
+1,allW D262V,193,expressing,159,97,1
+1,allW D262V,281,expressing,170,108,1
+1,allW D262V,135,expressing,170,108,1
+1,allW D262V,1258,expressing,181,119,0
+1,allW D262V,771,expressing,181,119,0
+1,allW D262V,282,expressing,181,119,0
+1,allW D262V,202,expressing,181,119,0
+2,allW D262V,278,expressing,76,14,1
+2,allW D262V,672,expressing,77,15,1
+2,allW D262V,274,expressing,78,16,1
+2,allW D262V,109,expressing,78,16,1
+2,allW D262V,298,expressing,79,17,1
+2,allW D262V,113,expressing,82,20,1
+2,allW D262V,329,expressing,85,23,1
+2,allW D262V,286,expressing,88,26,1
+2,allW D262V,764,expressing,90,28,1
+2,allW D262V,694,expressing,90,28,1
+2,allW D262V,152,expressing,91,29,1
+2,allW D262V,145,expressing,91,29,1
+2,allW D262V,125,expressing,95,33,1
+2,allW D262V,221,expressing,97,35,1
+2,allW D262V,114,expressing,97,35,1
+2,allW D262V,162,expressing,100,38,1
+2,allW D262V,619,expressing,103,41,1
+2,allW D262V,317,expressing,103,41,1
+2,allW D262V,110,expressing,104,42,1
+2,allW D262V,163,expressing,104,42,1
+2,allW D262V,174,expressing,104,42,1
+2,allW D262V,151,expressing,105,43,1
+2,allW D262V,570,expressing,105,43,1
+2,allW D262V,230,expressing,106,44,1
+2,allW D262V,134,expressing,106,44,1
+2,allW D262V,220,expressing,109,47,1
+2,allW D262V,137,expressing,111,49,1
+2,allW D262V,138,expressing,115,53,1
+2,allW D262V,259,expressing,118,56,1
+2,allW D262V,139,expressing,119,57,1
+2,allW D262V,930,expressing,121,59,1
+2,allW D262V,113,expressing,122,60,1
+2,allW D262V,153,expressing,123,61,1
+2,allW D262V,127,expressing,126,64,1
+2,allW D262V,123,expressing,128,66,1
+2,allW D262V,326,expressing,129,67,1
+2,allW D262V,115,expressing,129,67,1
+2,allW D262V,210,expressing,130,68,1
+2,allW D262V,118,expressing,131,69,1
+2,allW D262V,835,expressing,132,70,1
+2,allW D262V,185,expressing,133,71,1
+2,allW D262V,124,expressing,134,72,1
+2,allW D262V,150,expressing,134,72,1
+2,allW D262V,530,expressing,137,75,1
+2,allW D262V,115,expressing,138,76,1
+2,allW D262V,137,expressing,142,80,1
+2,allW D262V,199,expressing,142,80,1
+2,allW D262V,214,expressing,144,82,1
+2,allW D262V,114,expressing,145,83,1
+2,allW D262V,555,expressing,146,84,1
+2,allW D262V,153,expressing,150,88,1
+2,allW D262V,773,expressing,150,88,1
+2,allW D262V,531,expressing,151,89,1
+2,allW D262V,198,expressing,154,92,1
+2,allW D262V,136,expressing,156,94,1
+2,allW D262V,135,expressing,164,102,1
+2,allW D262V,246,expressing,164,102,1
+2,allW D262V,244,expressing,165,103,1
+2,allW D262V,298,expressing,167,105,1
+2,allW D262V,829,expressing,174,112,1
+2,allW D262V,262,expressing,181,119,0
+2,allW D262V,364,expressing,181,119,0
+2,allW D262V,977,expressing,181,119,0
+2,allW D262V,439,expressing,181,119,0
+2,allW D262V,765,expressing,181,119,0
+2,allW D262V,583,expressing,181,119,0
+2,allW D262V,1092,expressing,181,119,0
+2,allW D262V,144,expressing,181,119,0
+2,allW D262V,542,expressing,181,119,0
+2,allW D262V,159,expressing,181,119,0
+2,allW D262V,1195,expressing,181,119,0
+2,allW D262V,208,expressing,181,119,0
+2,allW D262V,221,expressing,181,119,0
+3,allW D262V,311,expressing,75,13,1
+3,allW D262V,129,expressing,85,23,1
+3,allW D262V,132,expressing,85,23,1
+3,allW D262V,287,expressing,88,26,1
+3,allW D262V,208,expressing,91,29,1
+3,allW D262V,283,expressing,93,31,1
+3,allW D262V,102,expressing,94,32,1
+3,allW D262V,191,expressing,94,32,1
+3,allW D262V,173,expressing,94,32,1
+3,allW D262V,176,expressing,95,33,1
+3,allW D262V,682,expressing,96,34,1
+3,allW D262V,534,expressing,97,35,1
+3,allW D262V,162,expressing,98,36,1
+3,allW D262V,359,expressing,98,36,1
+3,allW D262V,104,expressing,99,37,1
+3,allW D262V,362,expressing,107,45,1
+3,allW D262V,132,expressing,107,45,1
+3,allW D262V,137,expressing,107,45,1
+3,allW D262V,145,expressing,108,46,1
+3,allW D262V,1558,expressing,110,48,1
+3,allW D262V,130,expressing,112,50,1
+3,allW D262V,166,expressing,112,50,1
+3,allW D262V,103,expressing,114,52,1
+3,allW D262V,545,expressing,116,54,1
+3,allW D262V,112,expressing,116,54,1
+3,allW D262V,648,expressing,122,60,1
+3,allW D262V,616,expressing,123,61,1
+3,allW D262V,701,expressing,123,61,1
+3,allW D262V,1538,expressing,123,61,1
+3,allW D262V,232,expressing,126,64,1
+3,allW D262V,837,expressing,130,68,1
+3,allW D262V,104,expressing,131,69,1
+3,allW D262V,193,expressing,131,69,1
+3,allW D262V,1259,expressing,134,72,1
+3,allW D262V,261,expressing,134,72,1
+3,allW D262V,825,expressing,139,77,1
+3,allW D262V,108,expressing,143,81,1
+3,allW D262V,788,expressing,147,85,1
+3,allW D262V,231,expressing,148,86,1
+3,allW D262V,718,expressing,156,94,1
+3,allW D262V,340,expressing,160,98,1
+3,allW D262V,807,expressing,178,116,1
+3,allW D262V,320,expressing,181,119,0
+3,allW D262V,306,expressing,181,119,0
+3,allW D262V,411,expressing,181,119,0
+3,allW D262V,316,expressing,181,119,0
+3,allW D262V,479,expressing,181,119,0
+3,allW D262V,302,expressing,181,119,0
+3,allW D262V,418,expressing,181,119,0
+3,allW D262V,244,expressing,181,119,0
+3,allW D262V,903,expressing,181,119,0
+3,allW D262V,123,expressing,181,119,0
+3,allW D262V,784,expressing,181,119,0
+3,allW D262V,422,expressing,181,119,0
+3,allW D262V,770,expressing,181,119,0

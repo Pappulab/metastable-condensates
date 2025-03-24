@@ -1,0 +1,273 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+library(readr)
+library(dplyr)
+library(ggplot2)
+library(ggpubr)
+library(tidyr)
+library(viridis)
+library(ggsci)
+```
+
+```{r}
+df1 <- read_csv("manual_scoring.csv", col_types = "ffddd")
+df2 <- read_csv("manual_scoring_negControl.csv", col_types = "ffddd")
+df1 <- df1 %>% mutate(cat = "expressing")
+df2 <- df2 %>% mutate(cat = "nonexpressing")
+df3 <- bind_rows(df1, df2)
+
+df4 <- df3 %>% filter(!((Day == 20231005 & Variant == "WT")|
+                 (Day == 20231005 & Variant == "D262V")|
+                 (Day == 20231207 & Variant == "allW D262V")))
+
+df4 <- df4 %>% mutate(Index = interaction(Day, Variant))
+df4$Index <- droplevels(df4$Index)
+df4 <- df4 %>% mutate(t = t_dissolution - 62)
+
+indices <- levels(df4$Index)
+variants <- levels(df4$Variant)
+
+df4.1 <- df4 %>% filter(cat == "expressing")
+df4.2 <- df4 %>% filter(cat == "nonexpressing")
+
+fpos <- tibble()
+
+for(i in indices){
+  testdata <- df4.1 %>% filter(Index == i)
+  test_ecdf <- ecdf(testdata$t)
+  invcdf <- 1 - test_ecdf(0:118)
+  components <- strsplit(i, split = "\\.")
+  out = tibble(Day = components[[1]][1],
+               Variant = components[[1]][2],
+               cat = "expressing",
+               Index = i,
+               t = 0:118,
+               f = invcdf)
+  fpos <- bind_rows(fpos,out)
+  
+  testdata <- df4.2 %>% filter(Index == i)
+  test_ecdf <- ecdf(testdata$t)
+  invcdf <- 1 - test_ecdf(0:118)
+  components <- strsplit(i, split = "\\.")
+  out = tibble(Day = components[[1]][1],
+               Variant = components[[1]][2],
+               cat = "nonexpressing",
+               Index = i,
+               t = 0:118,
+               f = invcdf)
+  fpos <- bind_rows(fpos,out)
+}
+
+write_csv(fpos, "fpos.csv")
+
+```
+
+
+```{r fig.width = 2.25, fig.height = 2.65}
+pdata_summary <- fpos %>% filter(cat == "expressing") %>% group_by(interaction(Variant,t)) %>% summarise(Variant = `Variant`[1], cat = `cat`[1], Index = `Index`[1], t = `t`[1], f_mean = mean(f), f_sem = sd(f)/sqrt(n()), f_n = n()) %>% mutate(Variant = factor(Variant, levels = variants))
+p1 <- ggplot(pdata_summary, aes(x = `t`, y = `f_mean`, color = `Variant`, group = `Index`)) +
+               geom_line(size = 0.5) +
+  geom_linerange(aes(ymin = `f_mean` - `f_sem`, ymax = `f_mean` + `f_sem`),
+                 position = position_dodge(width = 0.8),
+                 size = 0.25) +
+  ggtitle("SG dissassembly in\neGFP-expressing cells") +
+  xlab("Recovery time (min)") + ylab("Fraction of cells with SGs")
+
+group_count <- df4.1 %>% group_by(Variant) %>% count()
+lab <- c()
+for(i in 1:nrow(group_count)){
+  vname <- group_count$Variant[i]
+  vcount <- group_count$n[i]
+  lab <- c(lab, paste(vname,"\n(n = ", vcount, ")", sep = ""))
+}
+
+p1 <- p1 + scale_color_manual(values = pal_aaas("default")(10), labels = lab) + theme_bw() +
+  theme(title = element_text(face="bold", size = 6),
+        axis.title = element_text(face="bold", size = 9),
+        axis.text = element_text(size = 9),
+        plot.title = element_text(size = 9),
+        legend.text = element_text(size = 6),
+        legend.position = "bottom",
+        legend.justification = 1,
+        legend.margin = margin(0,0,0,0),
+        legend.key.size = unit(12, "pt"))
+
+write_csv(pdata_summary %>% select(c(2,3,5:8)), "summary_expressing.csv")
+
+pdf("plot_expressing.pdf", width = 2.25, height = 2.65)
+p1
+dev.off()
+
+p1
+```
+```{r fig.width = 2.25, fig.height = 2.65}
+pdata_summary <- fpos %>% filter(cat == "nonexpressing") %>% group_by(interaction(Variant,t)) %>% summarise(Variant = `Variant`[1], cat = `cat`[1], Index = `Index`[1], t = `t`[1], f_mean = mean(f), f_sem = sd(f)/sqrt(n()), f_n = n()) %>% mutate(Variant = factor(Variant, levels = variants))
+p1 <- ggplot(pdata_summary, aes(x = `t`, y = `f_mean`, color = `Variant`, group = `Index`)) +
+               geom_line(size = 0.5) +
+  geom_linerange(aes(ymin = `f_mean` - `f_sem`, ymax = `f_mean` + `f_sem`),
+                 position = position_dodge(width = 0.8),
+                 size = 0.25) +
+  ggtitle("SG disassembly in cells with\nbaseline eGFP expression") +
+  xlab("Recovery time (min)") + ylab("Fraction of cells with SGs")
+
+group_count <- df4.2 %>% group_by(Variant) %>% count()
+lab <- c()
+for(i in 1:nrow(group_count)){
+  vname <- group_count$Variant[i]
+  vcount <- group_count$n[i]
+  lab <- c(lab, paste(vname,"\n(n = ", vcount, ")", sep = ""))
+}
+
+p1 <- p1 + scale_color_manual(values = pal_aaas("default")(10), labels = lab) + theme_bw() +
+  theme(title = element_text(face="bold", size = 6),
+        axis.title = element_text(face="bold", size = 9),
+        axis.text = element_text(size = 9),
+        plot.title = element_text(size = 9, hjust = 0),
+        legend.text = element_text(size = 6),
+        legend.position = "bottom",
+        legend.justification = 1,
+        legend.margin = margin(0,0,0,0),
+        legend.key.size = unit(12, "pt"))
+
+write_csv(pdata_summary %>% select(c(2,3,5:8)), "summary_nonexpressing.csv")
+
+pdf("plot_nonexpressing.pdf", width = 2.25, height = 2.65)
+p1
+dev.off()
+
+
+p1
+```
+
+```{r fig.width = 2.25, fig.height = 2.65}
+pdata_summary <- fpos %>% filter(Variant == "WT") %>% group_by(interaction(`cat`,t)) %>% summarise(Variant = `Variant`[1], cat = `cat`[1], Index = `Index`[1], t = `t`[1], f_mean = mean(f), f_sem = sd(f)/sqrt(n()), f_n = n()) #%>% mutate(cat = factor(cat, levels = c("nonexpressing","expressing")))
+p1 <- ggplot(pdata_summary, aes(x = `t`, y = `f_mean`, color = `cat`)) +
+               geom_line(size = 0.5) +
+  geom_linerange(aes(ymin = `f_mean` - `f_sem`, ymax = `f_mean` + `f_sem`),
+                 position = position_dodge(width = 0.8),
+                 size = 0.25) +
+  ggtitle("WT") +
+  xlab("Recovery time (min)") + ylab("Fraction of cells with SGs")
+
+group_count <- df4 %>% filter(Variant == "WT") %>% group_by(`cat`) %>% count()
+lab <- c()
+for(i in 1:nrow(group_count)){
+  vname <- group_count$cat[i]
+  vcount <- group_count$n[i]
+  lab <- c(lab, paste(vname,"\n(n = ", vcount, ")", sep = ""))
+}
+
+# p1 <- p1 + scale_color_manual(values = rev(pal_aaas("default")(2)),name = "eGFP", labels = lab) + theme_bw() +
+#   theme(title = element_text(face="bold", size = 11),
+#         axis.title = element_text(face="bold", size = 11))
+
+p1 <- p1 + scale_color_manual(values = pal_aaas("default")(10), name = "eGFP", labels = lab) + theme_bw() +
+  theme(title = element_text(face="bold", size = 6),
+        axis.title = element_text(face="bold", size = 9),
+        axis.text = element_text(size = 9),
+        plot.title = element_text(size = 9, hjust = 0),
+        legend.text = element_text(size = 6),
+        legend.position = "bottom",
+        legend.justification = 1,
+        legend.margin = margin(0,0,0,0),
+        legend.key.size = unit(12, "pt"))
+
+write_csv(pdata_summary %>% select(c(2,3,5:8)), "summary_WT.csv")
+
+pdf("plot_WT.pdf", width = 2.25, height = 2.65)
+p1
+dev.off()
+
+p1
+```
+```{r fig.width = 2.25, fig.height = 2.65}
+pdata_summary <- fpos %>% filter(Variant == "D262V") %>% group_by(interaction(`cat`,t)) %>% summarise(Variant = `Variant`[1], cat = `cat`[1], Index = `Index`[1], t = `t`[1], f_mean = mean(f), f_sem = sd(f)/sqrt(n()), f_n = n()) #%>% mutate(cat = factor(cat, levels = c("nonexpressing","expressing")))
+p1 <- ggplot(pdata_summary, aes(x = `t`, y = `f_mean`, color = `cat`)) +
+               geom_line(size = 0.5) +
+  geom_linerange(aes(ymin = `f_mean` - `f_sem`, ymax = `f_mean` + `f_sem`),
+                 position = position_dodge(width = 0.8),
+                 size = 0.25) +
+  ggtitle("D262V") +
+  xlab("Recovery time (min)") + ylab("Fraction of cells with SGs")
+
+group_count <- df4 %>% filter(Variant == "D262V") %>% group_by(`cat`) %>% count()
+lab <- c()
+for(i in 1:nrow(group_count)){
+  vname <- group_count$cat[i]
+  vcount <- group_count$n[i]
+  lab <- c(lab, paste(vname,"\n(n = ", vcount, ")", sep = ""))
+}
+
+# p1 <- p1 + scale_color_manual(values = rev(pal_aaas("default")(2)), name = "eGFP", labels = lab) + theme_bw() +
+#   theme(title = element_text(face="bold", size = 11),
+#         axis.title = element_text(face="bold", size = 11))
+
+p1 <- p1 + scale_color_manual(values = pal_aaas("default")(10), name = "eGFP", labels = lab) + theme_bw() +
+  theme(title = element_text(face="bold", size = 6),
+        axis.title = element_text(face="bold", size = 9),
+        axis.text = element_text(size = 9),
+        plot.title = element_text(size = 9, hjust = 0),
+        legend.text = element_text(size = 6),
+        legend.position = "bottom",
+        legend.justification = 1,
+        legend.margin = margin(0,0,0,0),
+        legend.key.size = unit(12, "pt"))
+
+write_csv(pdata_summary %>% select(c(2,3,5:8)), "summary_D262V.csv")
+
+pdf("plot_D262V.pdf", width = 2.25, height = 2.65)
+p1
+dev.off()
+
+p1
+```
+
+```{r fig.width = 2.25, fig.height = 2.65}
+pdata_summary <- fpos %>% filter(Variant == "allW D262V") %>% group_by(interaction(`cat`,t)) %>% summarise(Variant = `Variant`[1], cat = `cat`[1], Index = `Index`[1], t = `t`[1], f_mean = mean(f), f_sem = sd(f)/sqrt(n()), f_n = n()) #%>% mutate(cat = factor(cat, levels = c("nonexpressing","expressing")))
+p1 <- ggplot(pdata_summary, aes(x = `t`, y = `f_mean`, color = `cat`)) +
+               geom_line(size = 0.5) +
+  geom_linerange(aes(ymin = `f_mean` - `f_sem`, ymax = `f_mean` + `f_sem`),
+                 position = position_dodge(width = 0.8),
+                 size = 0.25) +
+  ggtitle("allW D262V") +
+  xlab("Recovery time (min)") + ylab("Fraction of cells with SGs")
+
+group_count <- df4 %>% filter(Variant == "allW D262V") %>% group_by(`cat`) %>% count()
+lab <- c()
+for(i in 1:nrow(group_count)){
+  vname <- group_count$cat[i]
+  vcount <- group_count$n[i]
+  lab <- c(lab, paste(vname,"\n(n = ", vcount, ")", sep = ""))
+}
+
+# p1 <- p1 + scale_color_manual(values = rev(pal_aaas("default")(2)), name = "eGFP", labels = lab) + theme_bw() +
+#   theme(title = element_text(face="bold", size = 11),
+#         axis.title = element_text(face="bold", size = 11))
+
+p1 <- p1 + scale_color_manual(values = pal_aaas("default")(10), name = "eGFP", labels = lab) + theme_bw() +
+  theme(title = element_text(face="bold", size = 6),
+        axis.title = element_text(face="bold", size = 9),
+        axis.text = element_text(size = 9),
+        plot.title = element_text(size = 9, hjust = 0),
+        legend.text = element_text(size = 6),
+        legend.position = "bottom",
+        legend.justification = 1,
+        legend.margin = margin(0,0,0,0),
+        legend.key.size = unit(12, "pt"))
+
+write_csv(pdata_summary %>% select(c(2,3,5:8)), "summary_allW D262V.csv")
+
+pdf("plot_allW D262V.pdf", width = 2.25, height = 2.65)
+p1
+dev.off()
+
+p1
+```
+
+
+
+
